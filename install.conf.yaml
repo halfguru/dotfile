@@ -1,3 +1,12 @@
-- clean: []
-- link: {}
-- shell: []
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- link:
+    ~/AppData/Local/nvim: neovim
+    ~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState: windows-terminal
+    ~/Documents/Powershell: powershell
+
+- shell:
+  - [git submodule update --init --recursive, "Installing submodules"]
