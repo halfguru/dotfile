@@ -1,5 +1,9 @@
+# clang-format configuration file
 Language: Cpp
+Standard: Cpp11
 BasedOnStyle: LLVM
+
+# Whitespace
 AccessModifierOffset: -4
 AlignAfterOpenBracket: AlwaysBreak
 AlignEscapedNewlines: Left
@@ -12,7 +16,6 @@ BreakBeforeBraces: Allman
 ColumnLimit: 120
 ContinuationIndentWidth: 4
 FixNamespaceComments: false
-IndentWidth: 4
 KeepEmptyLinesAtTheStartOfBlocks: false
 MaxEmptyLinesToKeep: 2
 PenaltyBreakBeforeFirstCallParameter: 2000
@@ -23,5 +26,8 @@ SpaceBeforeCtorInitializerColon: false
 SpaceBeforeInheritanceColon: false
 SpaceBeforeParens: ControlStatements
 SpaceBeforeRangeBasedForLoopColon: false
+
+# Indentation
+IndentWidth: 4
 TabWidth: 4
 UseTab: Always

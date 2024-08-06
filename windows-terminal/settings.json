@@ -38,7 +38,11 @@
         "defaults": {
             "font": {
                 "face": "JetBrainsMonoNL Nerd Font"
-            }
+            },
+            "backgroundImage": "%USERPROFILE%\\AppData\\Local\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\One-Piece-Ship-Wallpaper-147504.jpg",
+            "backgroundImageAlignment": "center",
+            "backgroundImageOpacity": 0.1,
+            //"backgroundImageStretchMode": "fill"
         },
         "list": [
             {
@@ -70,9 +74,9 @@
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
                 "name": "PowerShell",
-                "opacity": 50,
                 "source": "Windows.Terminal.PowershellCore",
-                "useAcrylic": true
+                "useAcrylic": true,
+                "opacity": 90,
             }
         ]
     },
