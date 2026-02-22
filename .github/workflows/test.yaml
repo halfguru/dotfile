@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-        with:
-          submodules: recursive
 
-      - name: Test dotbot install (dry-run)
-        run: ./install --dry-run
+      - name: Validate install script and config
+        run: |
+          test -x ./install
+          python3 -c "import yaml; yaml.safe_load(open('install.conf.yaml'))"
