@@ -1,0 +1,18 @@
+name: Test
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Validate install script and config
+        run: |
+          test -x ./install
+          python3 -c "import yaml; yaml.safe_load(open('install.conf.yaml'))"
