@@ -12,3 +12,5 @@ vim.o.shiftwidth = 4   -- Number of spaces inserted when indenting
 -- vim.opt.relativenumber = false
 
 vim.o.cursorline = false -- Enable highlighting of the current line
+
+vim.lsp.inlay_hint.enable(false)
