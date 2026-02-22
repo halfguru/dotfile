@@ -7,7 +7,15 @@ This repository contains dotfiles managed with [dotbot](https://github.com/anish
 ### Dotfiles Installation
 ```bash
 ./install                    # Install all symlinks defined in install.conf.yaml
-./install --dry-run          # Test dotbot config without making changes
+```
+
+### Validation
+```bash
+# Validate YAML config
+python3 -c "import yaml; yaml.safe_load(open('install.conf.yaml'))"
+
+# Check installed symlinks
+ls -la ~/.config/nvim ~/.zshrc ~/.gitconfig
 ```
 
 ### Git Submodules
@@ -37,15 +45,6 @@ hatch fmt --check                                   # Check without modifying
 hatch run types:check                               # Run mypy type checker
 ```
 
-### Validation
-```bash
-# Check installed symlinks
-ls -la ~/.config/nvim ~/.zshrc ~/.gitconfig
-
-# Verify dotbot is working
-./install --dry-run
-```
-
 ## Repository Structure
 
 ```
@@ -61,7 +60,12 @@ ls -la ~/.config/nvim ~/.zshrc ~/.gitconfig
 │   └── lua/
 │       ├── config/         # Core config (options, keymaps, autocmds)
 │       └── plugins/        # Plugin specifications
-└── dotbot/                 # Dotbot submodule (git submodule)
+├── .github/
+│   └── workflows/          # GitHub Actions CI
+│       ├── lint.yaml       # YAML linting
+│       └── test.yaml       # Config validation
+├── dotbot/                 # Dotbot submodule (git submodule)
+└── powershell/             # Windows PowerShell config (not installed on Linux)
 ```
 
 ## Code Style Guidelines
@@ -148,6 +152,47 @@ killport() {
 }
 ```
 
+**History Configuration**
+- Set `HISTFILE`, `HISTSIZE`, `SAVEHIST` for persistent history
+- Use `setopt HIST_IGNORE_DUPS` to avoid duplicate entries
+- Use `setopt SHARE_HISTORY` to share history across sessions
+
+```bash
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt HIST_IGNORE_DUPS
+setopt SHARE_HISTORY
+```
+
+**Aliases**
+- Use conditional aliases for modern tools with fallbacks
+- Group related aliases together (navigation, git, etc.)
+- Use `command -v` to check if a tool exists
+
+```bash
+# Modern tool with fallback
+if command -v exa &> /dev/null; then
+  alias ls='exa --icons'
+  alias ll='exa -l --icons'
+else
+  alias ll='ls -alF'
+fi
+
+# Git aliases
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+```
+
+**Local Overrides**
+- Source `~/.zshrc.local` at the end for machine-specific config
+- Keep personal/sensitive settings out of version control
+
+```bash
+[ -f "$HOME/.zshrc.local" ] && . "$HOME/.zshrc.local"
+```
+
 ### Lua (Neovim Configuration)
 
 **Plugin Structure**
@@ -200,5 +245,5 @@ When committing changes:
 - Don't commit sensitive data (SSH keys, API tokens, passwords, .env files)
 - Use submodules for large external tools (like dotbot)
 - The repo is a collection of configs to symlink - configs themselves follow their own tool's conventions
-- Test changes with `./install --dry-run` before committing
 - When working in dotbot submodule, run `hatch fmt` and `hatch test` before committing
+- Run `python3 -c "import yaml; yaml.safe_load(open('install.conf.yaml'))"` to validate YAML before committing
