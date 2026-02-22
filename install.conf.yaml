@@ -4,11 +4,8 @@
       relink: true
 
 - link:
-    ~/AppData/Local/nvim: neovim
-    ~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState: windows-terminal
-    ~/Documents/Powershell: powershell
-    ~/.clang-format: .clang-format
-    ~/.config/wezterm: wezterm
+    ~/.config/nvim: neovim
+    ~/.gitconfig: gitconfig
+    ~/.zshenv: zshenv
+    ~/.zshrc: zshrc
 
-- shell:
-  - [git submodule update --init --recursive, "Installing submodules"]
