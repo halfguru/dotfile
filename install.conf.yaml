@@ -4,6 +4,7 @@
       relink: true
 
 - link:
+    ~/.config/bottom/bottom.toml: bottom.toml
     ~/.config/nvim: neovim
     ~/.gitconfig: gitconfig
     ~/.zshenv: zshenv
