@@ -78,6 +78,9 @@ main() {
     mkdir -p "$CONFIG_DIR/opencode"
     link_file "$DOTFILES_DIR/opencode/opencode.json" "$CONFIG_DIR/opencode/opencode.json"
     
+    log "Linking ghostty"
+    link_dir "$DOTFILES_DIR/ghostty" "$CONFIG_DIR/ghostty"
+    
     echo -e "\n${BOLD}${GREEN}Done!${RESET} Dotfiles installed.\n"
 }
 
