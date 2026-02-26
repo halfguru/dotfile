@@ -1,15 +1,84 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-set -e
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+BOLD='\033[1m'
+RESET='\033[0m'
 
-CONFIG="install.conf.yaml"
-DOTBOT_DIR="dotbot"
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONFIG_DIR="$HOME/.config"
 
-DOTBOT_BIN="bin/dotbot"
-BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+log() { echo -e "${BLUE}→${RESET} $1"; }
+ok() { echo -e "${GREEN}✓${RESET} $1"; }
+skip() { echo -e "${YELLOW}○${RESET} $1"; }
+die() { echo -e "${RED}✗${RESET} $1" >&2; exit 1; }
 
-cd "${BASEDIR}"
-git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
-git submodule update --init --recursive "${DOTBOT_DIR}"
+link_file() {
+    local src="$1"
+    local dest="$2"
+    
+    if [[ -L "$dest" ]]; then
+        local current
+        current="$(readlink -f "$dest")"
+        if [[ "$current" == "$src" ]]; then
+            skip "$dest (already linked)"
+            return 0
+        fi
+        log "Replacing existing symlink: $dest"
+        rm -f "$dest"
+    elif [[ -e "$dest" ]]; then
+        log "Backing up: $dest → ${dest}.bak"
+        mv "$dest" "${dest}.bak"
+    fi
+    
+    ln -sf "$src" "$dest"
+    ok "$dest"
+}
 
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
+link_dir() {
+    local src="$1"
+    local dest="$2"
+    
+    if [[ -L "$dest" ]]; then
+        local current
+        current="$(readlink -f "$dest")"
+        if [[ "$current" == "$src" ]]; then
+            skip "$dest (already linked)"
+            return 0
+        fi
+        log "Replacing existing symlink: $dest"
+        rm -f "$dest"
+    elif [[ -d "$dest" ]]; then
+        log "Backing up: $dest → ${dest}.bak"
+        mv "$dest" "${dest}.bak"
+    fi
+    
+    ln -sf "$src" "$dest"
+    ok "$dest"
+}
+
+main() {
+    echo -e "\n${BOLD}Installing dotfiles...${RESET}\n"
+    
+    mkdir -p "$CONFIG_DIR"
+    
+    log "Linking zshrc"
+    link_file "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
+    
+    log "Linking hypr"
+    link_dir "$DOTFILES_DIR/hypr" "$CONFIG_DIR/hypr"
+    
+    log "Linking nvim"
+    link_dir "$DOTFILES_DIR/nvim" "$CONFIG_DIR/nvim"
+    
+    log "Linking opencode"
+    mkdir -p "$CONFIG_DIR/opencode"
+    link_file "$DOTFILES_DIR/opencode/opencode.json" "$CONFIG_DIR/opencode/opencode.json"
+    
+    echo -e "\n${BOLD}${GREEN}Done!${RESET} Dotfiles installed.\n"
+}
+
+main "$@"

@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check shell scripts
+        run: |
+          shellcheck install || true
+
+      - name: Validate YAML
+        run: |
+          python3 -c "import yaml; [yaml.safe_load(open(f)) for f in $(find . -name '*.yaml' -o -name '*.yml' 2>/dev/null)]" || true
+
+      - name: Validate JSON
+        run: |
+          for f in $(find . -name '*.json' -not -path './nvim/lazy-lock.json'); do
+            python3 -c "import json; json.load(open('$f'))" || echo "Invalid JSON: $f"
+          done
