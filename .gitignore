@@ -1,20 +1,2 @@
-# OS files
-.DS_Store
-Thumbs.db
-
-# Editor
-*.swp
-*.swo
-*~
-
-# Secrets (never commit these)
-.env
-.env.*
-*_secret*
-*_private*
-credentials.json
-
-# Temporary files
-*.tmp
-*.temp
-gh-config.yml
+*.bak
+*.zwc
