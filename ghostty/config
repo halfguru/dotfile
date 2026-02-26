@@ -7,7 +7,7 @@ command = zsh
 # Font
 font-family = "JetBrainsMono Nerd Font"
 font-style = Regular
-font-size = 20
+font-size = 18
 
 # Window
 window-theme = ghostty

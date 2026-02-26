@@ -5,6 +5,7 @@
 **Personal configuration files for Omarchy Linux**
 
 [![Hyprland](https://img.shields.io/badge/Hyprland-00ADD8?style=for-the-badge&logo=wayland&logoColor=white)](https://hyprland.org/)
+[![Waybar](https://img.shields.io/badge/Waybar-1C1C1C?style=for-the-badge)](https://github.com/Alexays/Waybar)
 [![Neovim](https://img.shields.io/badge/Neovim-57A143?style=for-the-badge&logo=neovim&logoColor=white)](https://neovim.io/)
 [![Ghostty](https://img.shields.io/badge/Ghostty-1C1C1C?style=for-the-badge)](https://ghostty.org/)
 [![Zsh](https://img.shields.io/badge/Zsh-F15A24?style=for-the-badge&logo=zsh&logoColor=white)](https://www.zsh.org/)
@@ -17,6 +18,7 @@
 ## ✨ Features
 
 - 🪟 **Hyprland** - Tiling Wayland compositor with custom keybinds
+- 📊 **Waybar** - Status bar with Omarchy theme integration
 - 📝 **Neovim** - LazyVim-based config with Omarchy theme integration
 - 🖤 **Ghostty** - Fast terminal with Omarchy theme integration
 - 🐚 **Zsh** - Oh-my-zsh with autosuggestions & syntax highlighting
