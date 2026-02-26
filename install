@@ -81,6 +81,9 @@ main() {
     log "Linking ghostty"
     link_dir "$DOTFILES_DIR/ghostty" "$CONFIG_DIR/ghostty"
     
+    log "Linking waybar"
+    link_dir "$DOTFILES_DIR/waybar" "$CONFIG_DIR/waybar"
+    
     echo -e "\n${BOLD}${GREEN}Done!${RESET} Dotfiles installed.\n"
 }
 
